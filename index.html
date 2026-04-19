@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yürüyen Ölülerden Kaçış</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="game-container"></div>
+    <div id="crosshair"></div>
+    
+    <div id="ui-layer">
+        <div id="hud">
+            <div class="stat-container">
+                <div class="stat-label">SAĞLIK</div>
+                <div class="bar-bg"><div id="health-bar" class="bar-fill"></div></div>
+            </div>
+            <div class="stat-container">
+                <div class="stat-label">STAMINA</div>
+                <div class="bar-bg"><div id="stamina-bar" class="bar-fill"></div></div>
+            </div>
+            <div id="inventory">
+                <div class="slot" id="slot-key" data-label="ANAHTAR"></div>
+                <div class="slot" id="slot-medkit" data-label="MEDKIT">0</div>
+                <div class="slot" id="slot-ammo" data-label="AMMO">0</div>
+            </div>
+        </div>
+
+        <div id="interaction-prompt" class="hidden">
+            <span class="key">E</span> ETKİLEŞİME GEÇ
+        </div>
+
+        <div id="screen-overlay" class="hidden">
+            <div id="game-over" class="screen hidden">
+                <h1>ÖLDÜN</h1>
+                <p>Zombiler seni yakaladı...</p>
+                <button onclick="location.reload()">TEKRAR DENE</button>
+            </div>
+            <div id="victory" class="screen hidden">
+                <h1>KURTULDUN</h1>
+                <p>Güvenli bölgeye ulaştın!</p>
+                <button onclick="location.reload()">BAŞTAN BAŞLA</button>
+            </div>
+        </div>
+
+        <div id="loading-screen">
+            <div class="loader"></div>
+            <p>DÜNYA YÜKLENİYOR...</p>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
