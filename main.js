@@ -205,9 +205,12 @@ class Game {
                     const weaponData = WEAPONS[weaponId];
                     if (weaponData && !this.player.inventory.weapons.find(w => w.id === weaponData.id)) {
                         this.player.inventory.weapons.push(weaponData);
+                        this.player.currentWeaponIndex = this.player.inventory.weapons.length - 1; // Auto-switch
                     } else if (weaponData && type === 'weapon_pistol') {
-                        // Already has pistol? Give ammo
-                        this.player.inventory.ammo += 5;
+                        this.player.inventory.ammo += 15;
+                        // If already has pistol, make sure it is selected if user wants auto-fire
+                        const pistolIndex = this.player.inventory.weapons.findIndex(w => w.id === 'pistol');
+                        if (pistolIndex !== -1) this.player.currentWeaponIndex = pistolIndex;
                     }
                 }
 

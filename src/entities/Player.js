@@ -31,19 +31,6 @@ export class Player {
         this.initMuzzleFlash();
     }
 
-    initMuzzleFlash() {
-        // Muzzle flash
-        const flashGeo = new THREE.SphereGeometry(0.2, 8, 8);
-        const flashMat = new THREE.MeshBasicMaterial({ color: 0xffffaa, transparent: true, opacity: 0 });
-        this.muzzleFlash = new THREE.Mesh(flashGeo, flashMat);
-        this.muzzleFlash.position.set(0, 1.5, 0.6);
-        this.mesh.add(this.muzzleFlash);
-
-        this.muzzleFlashLight = new THREE.PointLight(0xffffaa, 0, 5);
-        this.muzzleFlashLight.position.set(0, 1.5, 0.6);
-        this.mesh.add(this.muzzleFlashLight);
-    }
-
     initFlashlight() {
         // High power flashlight
         this.flashlight = new THREE.SpotLight(0xffffff, 50, 40, Math.PI / 6, 0.5, 0.5);
@@ -52,8 +39,9 @@ export class Player {
         this.flashlight.castShadow = true;
         this.mesh.add(this.flashlight);
         this.mesh.add(this.flashlight.target);
+    }
 
-        // Muzzle flash
+    initMuzzleFlash() {
         const flashGeo = new THREE.SphereGeometry(0.2, 8, 8);
         const flashMat = new THREE.MeshBasicMaterial({ color: 0xffffaa, transparent: true, opacity: 0 });
         this.muzzleFlash = new THREE.Mesh(flashGeo, flashMat);
@@ -87,9 +75,17 @@ export class Player {
     }
 
     meleeAttack() {
+        // Use current weapon for damage/range only if it's a melee type
         const weapon = this.inventory.weapons[this.currentWeaponIndex];
+        const isRanged = weapon.type === 'ranged';
+        
         this.humanoid.playPunchAnimation();
-        return { type: 'melee', damage: weapon.damage, range: weapon.range };
+        
+        return { 
+            type: 'melee', 
+            damage: isRanged ? 1 : weapon.damage, 
+            range: isRanged ? 1.5 : weapon.range 
+        };
     }
 
     playShootEffect() {
